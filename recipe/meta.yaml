@@ -1,5 +1,5 @@
 {% set name = "rattler-build" %}
-{% set version = "0.4.0" %}
+{% set version = "0.5.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,12 @@ package:
 
 source:
   url: https://github.com/prefix-dev/rattler-build/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 833768fb3fb9049b9b9f945be19ea623e9af4f86e608b25e9aff2e2dc543cbb9
+  sha256: 9db3a6ebdd3432574ec77f0b66f1aac144c121965d0baea0758f49c9a0ff5f79
 
 build:
   script:
     # Unix recipe
+    - export OPENSSL_DIR="$PREFIX"                                            # [unix]
     - cargo install --locked --bins --root ${PREFIX} --path .                 # [unix]
     - cargo-bundle-licenses --format yaml --output ${SRC_DIR}/THIRDPARTY.yml  # [unix]
     - rm $PREFIX/.crates2.json                                                # [unix]
