@@ -22,7 +22,7 @@ build:
     - cargo-bundle-licenses --format yaml --output %SRC_DIR%/THIRDPARTY.yml   # [win]
     - del %PREFIX%\.crates2.json                                              # [win]
     - del %PREFIX%\.crates.toml                                               # [win]
-  number: 0
+  number: 1
   # disable binary prefix detection, because rattler-build encodes the old `anaconda1anaconda2anaconda3` prefix
   # somewhere to make old packages installable. In other words, conda-build finds a false-positive here.
   detect_binary_files_with_prefix: false
