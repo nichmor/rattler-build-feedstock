@@ -58,16 +58,18 @@ if [[ -f "${FEEDSTOCK_ROOT}/LICENSE.txt" ]]; then
 fi
 
 if [[ "${BUILD_WITH_CONDA_DEBUG:-0}" == 1 ]]; then
-    if [[ "x${BUILD_OUTPUT_ID:-}" != "x" ]]; then
-        EXTRA_CB_OPTIONS="${EXTRA_CB_OPTIONS:-} --output-id ${BUILD_OUTPUT_ID}"
-    fi
-    conda debug "${RECIPE_ROOT}" -m "${CI_SUPPORT}/${CONFIG}.yaml" \
-        ${EXTRA_CB_OPTIONS:-} \
-        --clobber-file "${CI_SUPPORT}/clobber_${CONFIG}.yaml"
+        if [[ "x${BUILD_OUTPUT_ID:-}" != "x" ]]; then
+            EXTRA_CB_OPTIONS="${EXTRA_CB_OPTIONS:-} --output-id ${BUILD_OUTPUT_ID}"
+        fi
+        conda debug "${RECIPE_ROOT}" -m "${CI_SUPPORT}/${CONFIG}.yaml" \
+            ${EXTRA_CB_OPTIONS:-} \
+            --clobber-file "${CI_SUPPORT}/clobber_${CONFIG}.yaml"
 
-    # Drop into an interactive shell
-    /bin/bash
+        # Drop into an interactive shell
+        /bin/bash
+
 else
+
     conda-build "${RECIPE_ROOT}" -m "${CI_SUPPORT}/${CONFIG}.yaml" \
         --suppress-variables ${EXTRA_CB_OPTIONS:-} \
         --clobber-file "${CI_SUPPORT}/clobber_${CONFIG}.yaml" \
